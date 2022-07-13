@@ -41,7 +41,7 @@ public:
                   delete root;
                   return NULL;
               }
-               if (!root->left || !root->right)
+               if (root->left==NULL^root->right==NULL)
                     return root->left ? root->left : root->right;
               TreeNode *temp=NULL;
               if(Height(root->left)>Height(root->right)){
