@@ -21,8 +21,8 @@ public:
                                 inorder,0,inorder.size()-1,inOrderMap);
         return root;
     }
-    TreeNode* buildTree(vector<int> preorder,int preStart,int preEnd,
-                       vector<int> inorder,int inStart,int inEnd,unordered_map<int,int> &inOrderMap){
+    TreeNode* buildTree(vector<int> &preorder,int preStart,int preEnd,
+                       vector<int> &inorder,int inStart,int inEnd,unordered_map<int,int> &inOrderMap){
         if(preStart>preEnd || inStart>inEnd)
             return NULL;
         TreeNode *root=new TreeNode(preorder[preStart]);
