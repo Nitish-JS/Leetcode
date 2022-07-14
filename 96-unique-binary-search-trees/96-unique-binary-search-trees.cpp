@@ -2,11 +2,9 @@ class Solution {
 public:
     
     int numTrees(int n) {
-        if(n==1)
-            return 1;
         int k=n;
         n=n*2;
-      long long ans;
+        long long ans=1;
         for(int i=0;i<k;i++){
             ans=ans*(n-i);
             ans=ans/(i+1);
