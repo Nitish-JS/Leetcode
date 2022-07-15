@@ -16,30 +16,25 @@ public:
             return {};
         queue<TreeNode*> q;
         q.push(root);
-        vector<int> level;
+        
         vector<vector<int>> ans;
         int flag=1;
         while(q.size()!=0){
             int n=q.size();
+            vector<int> level(n);
             for(int i=0;i<n;i++){
                 root=q.front();
                 q.pop();
+                int index=flag?i:(n-i-1);
+                level[index]=root->val;
                 if(root->left)
                         q.push(root->left);
                 if(root->right)
                     q.push(root->right);
-                level.push_back(root->val);
+                
             }
-            if(flag==1){
-                ans.push_back(level);
-                flag=0;
-            }
-            else if(flag==0){
-                reverse(level.begin(),level.end());
-                ans.push_back(level);
-                flag=1;
-            }
-            level.clear();
+            flag=!flag;
+            ans.push_back(level);
         }
         return ans;
     }
