@@ -22,11 +22,9 @@ public:
     int minDiffInBST(TreeNode* root) {
         vector<int> ans;
         inorder(root,ans);
-        if(ans.size()==1)
-            return ans[0];
        int mini=INT_MAX;
         for(int i=0;i<ans.size()-1;i++){
-            mini=min(abs(ans[i]-ans[i+1]),mini);
+            mini=min(ans[i+1]-ans[i],mini);
         }
         return mini;
         
