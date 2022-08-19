@@ -16,6 +16,7 @@ public:
         do{
             slow=next(slow);
             fast=next(next(fast));
+            if (fast==1) return true;
         }while(slow!=fast);
         if(slow==1)
             return true;
