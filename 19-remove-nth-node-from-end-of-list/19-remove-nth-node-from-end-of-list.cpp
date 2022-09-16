@@ -20,13 +20,7 @@ public:
             temp=temp->next;
         }
         if(n==count){
-            if(head->next){
-                head=head->next;
-                return head;
-            }
-                
-            else
-                return NULL;
+            return head->next;
         }
         
         int location=count-n-1;
