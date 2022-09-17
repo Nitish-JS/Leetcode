@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<vector<int>> ans;
     void combination(int index,int target,vector<int> &arr,vector<int> &ds){
-        if(index==arr.size()){
+        if(index==arr.size() || target==0){
             if(target==0)
                 ans.push_back(ds);
             return;
