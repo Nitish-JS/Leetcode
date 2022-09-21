@@ -5,7 +5,7 @@ public:
         vector<int> ans;
         int evenSum=0;
         for(int i:nums){
-            if(!(i&1))
+            if(i%2==0)
                 evenSum+=i;
         }
         for(auto it:queries){
