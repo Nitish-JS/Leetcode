@@ -1,15 +1,23 @@
 class Solution {
 public:
     int strStr(string haystack, string needle) {
-        int subSize=needle.size();
-        int n=haystack.size();
-        for(int i=0;i<n;i++){
-            
-            string temp=haystack.substr(i,subSize);
-            cout<<temp<<'\n';
-            if(temp==needle){
-                return i;
+       if(needle.size()==0)
+           return -1;
+        int i=0,j=0;
+        while(i<haystack.size() and j<needle.size()){
+            if(haystack[i]==needle[j]){
+                i++;
+                j++;
+                if(j==needle.size()){
+                    return i-needle.size();
+                }
             }
+            else{
+                i=i-j+1;                
+                j=0;
+            }
+            
+
         }
         return -1;
     }
