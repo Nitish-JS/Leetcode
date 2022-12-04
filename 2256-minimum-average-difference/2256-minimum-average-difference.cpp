@@ -14,13 +14,6 @@ public:
                 suffix[n-1]=nums[n-1];
             }
         }
-        // for(int i:prefix){
-        //     cout<<i<<" ";
-        // }
-        // cout<<"\n";
-        // for(int i:suffix){
-        //     cout<<i<<" ";
-        // }
         int index=-1;
         long long ans=INT_MAX;
         for(int i=0;i<n;i++){
