@@ -19,10 +19,9 @@ public:
         q.push(make_pair(root,0));
         while(q.size()!=0){
             int size=q.size();
-            int mini=q.front().second;
             int first,last;
             for(int i=0;i<size;i++){
-                long cur_index=q.front().second-mini;
+                long cur_index=q.front().second;
                 TreeNode* temp=q.front().first;
                 q.pop();
                 if(i==0)
