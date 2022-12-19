@@ -9,6 +9,7 @@ public:
         queue<int> q;
         vector<int> visited(n,0);
         q.push(source);
+        visited[source]=1;
         while(!q.empty()){
             int top=q.front();
             q.pop();
