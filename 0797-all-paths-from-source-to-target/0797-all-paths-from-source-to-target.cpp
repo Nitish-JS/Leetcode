@@ -4,6 +4,8 @@ public:
         visited.push_back(node);
         if(node==graph.size()-1){
             ans.push_back(visited);
+            visited.pop_back();
+            return;
         }
         else{
             for(auto edge:graph[node]){
