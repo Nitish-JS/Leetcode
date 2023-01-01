@@ -1,25 +1,26 @@
 class Solution {
 public:
-    int minFallingPathSum(vector<vector<int>>& matrix) {
-       vector<vector<int>> dp(matrix.size(),vector<int>(matrix.size()));
-        int ans=INT_MAX;
-        int row=matrix.size();
-        int col=matrix[0].size();
-        for(int i=0;i<col;i++)
-            dp[0][i]=matrix[0][i];
-        for(int i=1;i<row;i++){
-            for(int j=0;j<col;j++){
-                if(j==0)
-                    dp[i][j]=min(dp[i-1][j+1]+matrix[i][j],dp[i-1][j]+matrix[i][j]);
-                else if(j==col-1)
-                    dp[i][j]=min(dp[i-1][j-1]+matrix[i][j],dp[i-1][j]+matrix[i][j]);
-                else{
-                    dp[i][j]=min(min(dp[i-1][j-1]+matrix[i][j],dp[i-1][j]+matrix[i][j]),dp[i-1][j+1]+matrix[i][j]);
-                }
-            }
+    int solve(vector<vector<int>> &matrix,int i,int j,int n,vector<vector<int>> &dp){
+        if(i>n || j<0 || j>n){
+            return 10001;
         }
-        for(int x:dp[dp.size()-1]){
-            ans=min(ans,x);
+        if(i==n){
+            return matrix[i][j];
+        }
+        if(dp[i][j]!=-1)
+            return dp[i][j];
+        int down=matrix[i][j]+solve(matrix,i+1,j,n,dp);
+        int leftdiag=matrix[i][j]+solve(matrix,i+1,j-1,n,dp);
+        int rightdiag=matrix[i][j]+solve(matrix,i+1,j+1,n,dp);
+        return dp[i][j]=min(down,min(leftdiag,rightdiag));
+    }
+    int minFallingPathSum(vector<vector<int>>& matrix) {
+        int ans=INT_MAX;
+        int n=matrix.size();
+        vector<vector<int>> dp(n,vector<int>(n,-1));
+
+        for(int i=0;i<n;i++){
+            ans=min(ans,solve(matrix,0,i,n-1,dp));
         }
         return ans;
     }
