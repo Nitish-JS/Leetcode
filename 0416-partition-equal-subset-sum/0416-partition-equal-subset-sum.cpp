@@ -1,21 +1,21 @@
 class Solution {
 public:
     bool solve(int n, int k, vector<int> &arr) {
-    vector<vector<bool>> dp(n+1,vector<bool>(200001,false));
-    for(int i=0;i<n;i++){
-        dp[i][0]=true;
-    }
-    dp[0][arr[0]]=true;
+    vector<bool>prev(200001,0);
+    vector<bool> curr(200001,0);
+    prev[0]=true;
+    prev[arr[0]]=true;
     for(int index=1;index<n;index++){
         for(int target=1;target<=k;target++){
             bool take=false;
             if(arr[index]<=target)
-                take=dp[index-1][target-arr[index]];
-            bool nottake=dp[index-1][target];
-            dp[index][target]=take||nottake;
+                take=prev[target-arr[index]];
+            bool nottake=prev[target];
+            curr[target]=take||nottake;
         }
+        prev=curr;
     }
-    return dp[n-1][k];
+    return prev[k];
     // Write your code here.
 }
 //     bool solve(vector<int> &nums,int index,int sum,vector<int> &dp){
