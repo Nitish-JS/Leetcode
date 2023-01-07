@@ -12,8 +12,24 @@ public:
         return dp[index][amount]=min(take,nottake);
     }
     int coinChange(vector<int>& coins, int amount) {
-        vector<vector<int>> dp(coins.size(),vector<int>(amount+1,-1));
-        int ans=solve(coins.size()-1,amount,coins,dp);
+        int n=coins.size();
+        vector<vector<int>> dp(n,vector<int>(amount+1,0));
+        for(int i=0;i<=amount;i++){
+            if(i%coins[0]==0) dp[0][i]=i/coins[0];
+            else dp[0][i]=1e9;
+        }
+        for(int index=1;index<n;index++){
+            for(int coin=0;coin<=amount;coin++){
+                int nottake=dp[index-1][coin];
+                int take=INT_MAX;
+                if(coins[index]<=coin){
+                    take=1+dp[index][coin-coins[index]];
+                    // coin=coin-coins[index];
+                }
+                dp[index][coin]=min(take,nottake);
+            }
+        }
+        int ans=dp[n-1][amount];
         return ans==1e9?-1:ans;
     }
 };
