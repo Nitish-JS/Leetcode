@@ -10,9 +10,14 @@ public:
         return dp[index]=(take+nottake)%1000000007;
     }
     int countHousePlacements(int n) {
-        vector<int> dp(n,-1);
-       long long ans=solve(n-1,dp);
         int mod=1e9+7;
-        return (ans*ans)%mod;
+        vector<long long> dp(n+1,0);
+        dp[0]=1;
+        dp[1]=2;
+        for(int i=2;i<=n;i++){
+            dp[i]=(dp[i-1]+dp[i-2])%mod;
+        }
+       
+        return (dp[n]*dp[n])%mod;
     }
 };
