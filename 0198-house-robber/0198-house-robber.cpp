@@ -12,16 +12,19 @@ public:
         return dp[index]=max(take,nottake);
     }
     int rob(vector<int>& nums) {
-        vector<int> dp(nums.size(),0);
-        dp[0]=nums[0];
+        // vector<int> dp(nums.size(),0);
+        int prev=nums[0];
+        int prev2=NULL;
+        // dp[0]=nums[0];
         for(int i=1;i<nums.size();i++){
             int take=nums[i];
             if(i>1){
-                take+=dp[i-2];
+                take+=prev2;
             }
-            int nottake=0+dp[i-1];
-            dp[i]=max(take,nottake);
+            int nottake=0+prev;
+            prev2=prev;
+            prev=max(take,nottake);
         }
-        return dp[nums.size()-1];
+        return prev;
     }
 };
