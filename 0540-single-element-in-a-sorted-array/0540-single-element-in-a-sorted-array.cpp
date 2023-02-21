@@ -4,8 +4,8 @@ public:
         int n=nums.size();
         int l=0,r=n-1,mid,ans;
         while(l<=r){
-            mid=(l+r)/2;
-            if(mid%2==1)
+            mid=(l+r)>>1;
+            if(mid & 1)
                 mid--;
             if(mid+1<n && nums[mid]==nums[mid+1])
                 l=mid+2;
