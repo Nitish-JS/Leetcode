@@ -11,15 +11,16 @@
  */
 class Solution {
 public:
-    int dfs(TreeNode* root,int ans){
-        if(!root)
-            return 0;
-        ans=ans*10+root->val;
-        if(root->left==NULL && root->right==NULL)
-            return ans;
-        return dfs(root->left,ans)+dfs(root->right,ans);
-        
-    }
+   int dfs(TreeNode *root,int ans){
+       if(!root)
+           return 0;
+       ans=ans*10+root->val;
+       if(root->left==NULL && root->right==NULL)
+           return ans;
+       int left=dfs(root->left,ans);
+       int right=dfs(root->right,ans);
+       return left+right;
+   }
     int sumNumbers(TreeNode* root) {
         return dfs(root,0);
     }
