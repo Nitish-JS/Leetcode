@@ -47,7 +47,6 @@ public:
                 if(root->right) q.push(root->right);
             }
             level++;
-            cout<<prev<<"\n";
         }
         return true;
     }
