@@ -19,9 +19,6 @@ public:
             if(isVowel(s[i]))
                 ans++;
         }
-//         for(int i=s.size()-k;i<s.size();i++){
-            
-//         }
         maxAns=max(ans,maxAns);
         return maxAns;
     }
