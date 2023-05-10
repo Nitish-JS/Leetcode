@@ -18,6 +18,6 @@ public:
                 count++;
             }
         }
-        return count>=nums.size()/2?candidate:-1;
+        return count>nums.size()/2?candidate:-1;
     }
 };
