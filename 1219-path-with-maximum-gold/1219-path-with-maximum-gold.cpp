@@ -23,7 +23,7 @@ public:
                 if(grid[i][j]==0) continue;
                 int x=solve(i,j,grid,dp);
                 maxi=max(maxi,x);
-                cout<<x<<" ";
+                // cout<<x<<" ";
             }
             cout<<endl;
         }
