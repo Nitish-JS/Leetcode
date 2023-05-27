@@ -12,7 +12,6 @@ public:
     //     return dp[index]=oneStep+twoStep;
     // }
     int climbStairs(int n) {
-        vector<int> dp(n+1,0);
         int prev1=1;
         int prev2=0;
         int ans;
