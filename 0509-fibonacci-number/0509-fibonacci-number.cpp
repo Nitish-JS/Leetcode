@@ -12,7 +12,7 @@ public:
     // }
     int fib(int n) {
         // int dp[31];
-        if(n<=1)
+        if(n<1)
             return n;
         int f2=0,f1=1;
         int ans=0;
