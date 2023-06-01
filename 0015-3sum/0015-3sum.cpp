@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-       sort(nums.begin(),nums.end());
+        sort(nums.begin(),nums.end());
         vector<int> temp;
         vector<vector<int>> ans;
         for(int i=0;i<nums.size();i++){
@@ -10,26 +10,24 @@ public:
                 int high=nums.size()-1;
                 while(low<high){
                     if(nums[i]+nums[low]+nums[high]==0){
-                    temp.push_back(nums[i]);
-                    temp.push_back(nums[low]);
-                    temp.push_back(nums[high]);
-                    ans.push_back(temp);
-                    temp.clear();
-                    while(low<high && nums[low]==nums[low+1]) low++;
-                    while(high>low && nums[high]==nums[high-1]) high--;
+                        temp.push_back(nums[i]);
+                        temp.push_back(nums[low]);
+                        temp.push_back(nums[high]);
+                        ans.push_back(temp);
+                        temp.clear();
+                        while(low<high && nums[low]==nums[low+1]) low++;
+                        while(low<high && nums[high]==nums[high-1]) high--;
                         low++;
                         high--;
                     }
-                    else if(nums[i]+nums[low]+nums[high]<0){
+                    else if(nums[i]+nums[low]+nums[high]<0)
                         low++;
-                    }
-                    else{
+                    else
                         high--;
-                    }   
                 }
             }
-
         }
         return ans;
+        // return {0,0,0};
     }
 };
