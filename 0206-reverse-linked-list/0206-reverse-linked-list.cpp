@@ -21,6 +21,5 @@ public:
             curr->next=prev;
         }
         return curr;
-        
     }
 };
