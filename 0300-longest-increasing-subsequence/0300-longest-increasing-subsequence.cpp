@@ -30,15 +30,18 @@ public:
         int n=arr.size();
         vector<int> temp;
         temp.push_back(arr[0]);
+        int ans=1;
         for(int i=1;i<n;i++){
-            if(temp.back()<arr[i])
+            if(temp.back()<arr[i]){
                 temp.push_back(arr[i]);
+                ans++;                
+            }
             else{
                 int index=lowerBound(temp,arr[i]);
                 temp[index]=arr[i];
             }
         }
-        return temp.size();
+        return ans;
         // int n=arr.size();
         // int dp[n];
         // fill(dp,dp+n,1);
