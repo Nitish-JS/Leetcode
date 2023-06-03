@@ -1,23 +1,19 @@
 class Solution {
 public:
-
-    int lcs(string &text1,string &text2,int index1,int index2,int dp[1001][1001]){
-        if(index1<0|| index2<0)
+    int solve(string &text1,string &text2,int i,int j,vector<vector<int>> &dp){
+        if(i<0 || j<0)
             return 0;
-        if(dp[index1][index2]!=-1)
-            return dp[index1][index2];
-        else if(text1[index1]==text2[index2]){
-            return dp[index1][index2]=1+lcs(text1,text2,index1-1,index2-1,dp);       
-        }
-        else{
-           return  dp[index1][index2]=max(lcs(text1,text2,index1-1,index2,dp),lcs(text1,text2,index1,index2-1,dp));
-        }
-            // return 
+        if(dp[i][j]!=-1)
+            return dp[i][j];
+        int take=0;
+        if(text1[i]==text2[j])
+            take=1+solve(text1,text2,i-1,j-1,dp);
+        int nottake=max(solve(text1,text2,i-1,j,dp),solve(text1,text2,i,j-1,dp));
+        return dp[i][j]=max(take,nottake);
+        
     }
     int longestCommonSubsequence(string text1, string text2) {
-        int dp[1001][1001];
-        memset(dp,-1,sizeof(dp));
-        
-       return lcs(text1,text2,text1.size()-1,text2.size()-1,dp);
+        vector<vector<int>> dp(text1.size(),vector<int>(text2.size(),-1));
+        return solve(text1,text2,text1.size()-1,text2.size()-1,dp);
     }
 };
