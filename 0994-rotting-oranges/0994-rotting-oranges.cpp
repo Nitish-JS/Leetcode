@@ -25,6 +25,7 @@ public:
         if(!oneCount)
             return 0;
         int time=0;
+        int curOneCount=0;
         vector<int> rows={-1,0,1,0};
         vector<int> cols={0,-1,0,1};
         while(!q.empty()){
@@ -40,17 +41,14 @@ public:
                     if(nextRow>=0 && nextCol>=0 && nextRow<n && nextCol<m && mat[nextRow][nextCol]==1){
                         q.push({nextRow,nextCol});
                         mat[nextRow][nextCol]=2;
+                        curOneCount++;
                     }
                 }
             }
             time++;
         }
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(mat[i][j]==1)
-                    return -1;
-            }
-        }
+        if(oneCount!=curOneCount)
+            return -1;
         return time-1;
     }
 };
