@@ -1,57 +1,56 @@
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-        queue<pair<int,int>> q;
-        int one_count=0,two_count=0,zero_count=0;
-        for(int i=0;i<grid.size();i++){
-            for(int j=0;j<grid[0].size();j++){
-                if(grid[i][j]==2){
-                    q.push({i,j});
-                    two_count++;
-                }
-                else if(grid[i][j]==1)
-                    one_count++;
-                else
-                    zero_count++;
+        // count no of ones
+        int oneCount=0;
+        int n=grid.size();
+        int m=grid[0].size();
+        //copying the input matrix
+        vector<vector<int>> mat(n,vector<int>(m));
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                mat[i][j]=grid[i][j];
             }
         }
-        if(one_count==0)
+        queue<pair<int,int>> q;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(mat[i][j]==2){
+                    q.push({i,j});
+                }
+                else if(mat[i][j]==1)
+                    oneCount++;
+            }
+        }
+        if(!oneCount)
             return 0;
-        int ans=0;
+        int time=0;
+        vector<int> rows={-1,0,1,0};
+        vector<int> cols={0,-1,0,1};
         while(!q.empty()){
-            ans++;
             int size=q.size();
             for(int i=0;i<size;i++){
-                int currRow=q.front().first;
-                int currCol=q.front().second;
+                pair<int,int> node=q.front();
                 q.pop();
-                if(currRow+1<grid.size() && grid[currRow+1][currCol]==1){
-                    grid[currRow+1][currCol]=2;
-                    q.push({currRow+1,currCol});
-                }
-                if(currCol+1<grid[0].size() && grid[currRow][currCol+1]==1){
-                    grid[currRow][currCol+1]=2;
-                    q.push({currRow,currCol+1});
-                }
-                if(currRow-1>=0  && grid[currRow-1][currCol]==1){
-                    grid[currRow-1][currCol]=2;
-                    q.push({currRow-1,currCol});
-                }
-                if(currCol-1>=0 && grid[currRow][currCol-1]==1){
-                    grid[currRow][currCol-1]=2;
-                    q.push({currRow,currCol-1});
+                int currRow=node.first;
+                int currCol=node.second;
+                for(int i=0;i<4;i++){
+                    int nextRow=currRow+rows[i];
+                    int nextCol=currCol+cols[i];
+                    if(nextRow>=0 && nextCol>=0 && nextRow<n && nextCol<m && mat[nextRow][nextCol]==1){
+                        q.push({nextRow,nextCol});
+                        mat[nextRow][nextCol]=2;
+                    }
                 }
             }
+            time++;
         }
-        for(int i=0;i<grid.size();i++){
-            for(int j=0;j<grid[0].size();j++){
-                if(grid[i][j]==1)
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(mat[i][j]==1)
                     return -1;
             }
         }
-        return ans-1;
-        
-        
-        
+        return time-1;
     }
 };
