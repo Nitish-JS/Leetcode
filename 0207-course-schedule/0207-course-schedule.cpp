@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool detectCycle(int node,vector<int> adj[],int visited[],int dfs[]){
+    bool detectCycle(int node,vector<int> adj[],vector<int> &visited,vector<int> &dfs){
         visited[node]=1;
         dfs[node]=1;
         for(int it:adj[node]){
@@ -20,11 +20,7 @@ public:
         for(auto edge:prerequisites){
             adj[edge[1]].push_back(edge[0]);
         }
-        int visited[n];
-        int dfs[n];
-        memset(visited,0,sizeof visited);
-        memset(dfs,0,sizeof dfs);
-        
+       vector<int> visited(n),dfs(n);
         for(int i=0;i<n;i++){
             if(!visited[i] && detectCycle(i,adj,visited,dfs))
                 return false;
