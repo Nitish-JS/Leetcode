@@ -11,6 +11,7 @@
  */
 class Solution {
 public:
+    // dfs approach
     void solve(TreeNode *root,int &sum){
         if(!root)
             return;
