@@ -12,36 +12,30 @@
 class Solution {
 public:
     int maxLevelSum(TreeNode* root) {
-        if(!root)
-            return 0;
-        int max_level=1;
-        int max_sum=INT_MIN;
-        int level_sum=0;
         queue<TreeNode*> q;
         q.push(root);
-        int i=1;
-        while(q.size()!=0){
-            int n=q.size();
-            for(int i=0;i<n;i++){
+        int level=0;
+        int ans=0;
+        int maxSum=INT_MIN;
+        while(!q.empty()){
+            int levelSum=0;
+            int size=q.size();
+            level++;
+            for(int i=0;i<size;i++){
                 root=q.front();
                 q.pop();
+                levelSum+=root->val;
                 if(root->left)
                     q.push(root->left);
                 if(root->right)
                     q.push(root->right);
-                level_sum+=root->val;
             }
-            
-            if(level_sum>max_sum){
-                max_sum=level_sum;
-                max_level=i;
-                // cout<<max_sum<<"\n";
+            if(levelSum>maxSum){
+                maxSum=levelSum;
+                ans=level;
             }
-            i++;
-            level_sum=0;
         }
-        cout<<max_sum<<'\n';
-        return max_level;
+        return ans;
         
     }
 };
