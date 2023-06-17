@@ -11,15 +11,15 @@ public:
         }
         int ans=INT_MIN;
         for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                if(i!=j){
+            for(int j=i+1;j<n;j++){
+                // if(i!=j){
                     int rank=0;
                     if(adj[i].find(j)!=adj[i].end())
                         rank=degree[i]+degree[j]-1;
                     else
                         rank=degree[i]+degree[j];
                     ans=max(rank,ans);
-                }
+                // }
             }
         }
         return ans;
