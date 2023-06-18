@@ -23,12 +23,7 @@ public:
             for(auto it:graph[node]){
                 if(dis+it[1]<distance[it[0]] && stops<=k){
                     distance[it[0]]=dis+it[1];
-                    if(it[0]!=dst){
-                        pq.push({stops+1,{it[0],distance[it[0]]}});
-                    }
-                    else{
-                        pq.push({stops,{it[0],distance[it[0]]}});
-                    }
+                    pq.push({stops+1,{it[0],distance[it[0]]}});
                 }
             }
         }
