@@ -18,6 +18,8 @@ public:
             int node=pq.front().second.first;
             int dis=pq.front().second.second;
             pq.pop();
+            if(stops>k)
+                continue;
             for(auto it:graph[node]){
                 if(dis+it[1]<distance[it[0]] && stops<=k){
                     distance[it[0]]=dis+it[1];
