@@ -1,34 +1,34 @@
 class Solution {
 public:
     int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
-        int n=grid.size();
-        if(grid[0][0]==1 || grid[n-1][n-1]==1)
+        if(grid[0][0]==1)
             return -1;
-        vector<vector<int>> directions={{-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
-        queue<pair<int,int>> q;
-        q.push({0,0});
-        grid[0][0]=1;
-        int length=1;
+        int n=grid.size();
+        vector<vector<int>> distance(n,vector<int>(n,INT_MAX));
+        queue<vector<int>> q;
+        q.push({1,0,0});
+        distance[0][0]=1;
         while(!q.empty()){
-            int size=q.size();
-            for(int i=0;i<size;i++){
-                int row=q.front().first;
-                int col=q.front().second;
-                q.pop();
-                if(row==n-1 && col==n-1)
-                    return length;
-                for(auto dir:directions){
-                    int nextX=row+dir[0];
-                    int nextY=col+dir[1];
-                    if(nextX>=0 && nextX<=n-1 && nextY>=0 && nextY<=n-1 && grid[nextX][nextY]==0){
-                        q.push({nextX,nextY});
-                        grid[nextX][nextY]=1;
+            vector<int> curr=q.front();
+            int row=curr[1];
+            int col=curr[2];
+            int dis=curr[0];
+            q.pop();
+            for(int i=-1;i<=1;i++){
+                for(int j=-1;j<=1;j++){
+                    int nextRow=i+row;
+                    int nextCol=j+col;
+                    if(nextRow>=0 && nextCol>=0 && nextRow<n && nextCol<n && grid[nextRow][nextCol]==0){
+                        if(dis+1<distance[nextRow][nextCol]){
+                            distance[nextRow][nextCol]=1+dis;
+                            q.push({distance[nextRow][nextCol],nextRow,nextCol});
+                        }
                     }
                 }
-                
             }
-            length++;
         }
-        return -1;
+        return distance[n-1][n-1]==INT_MAX?-1:distance[n-1][n-1];
+        
+        
     }
 };
