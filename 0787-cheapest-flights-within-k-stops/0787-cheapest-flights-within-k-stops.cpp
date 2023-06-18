@@ -1,0 +1,36 @@
+class Solution {
+private:
+    void buildGraph(vector<vector<int>> graph[],vector<vector<int>> &flights){
+        for(auto edge:flights){
+            graph[edge[0]].push_back({edge[1],edge[2]});
+        }
+    }
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        vector<vector<int>> graph[n];
+        buildGraph(graph,flights);
+        vector<int> distance(n,INT_MAX);
+        distance[src]=0;
+        priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>> pq;
+        pq.push({0,{src,0}});
+        while(!pq.empty()){
+            int stops=pq.top().first;
+            int node=pq.top().second.first;
+            int dis=pq.top().second.second;
+            pq.pop();
+            for(auto it:graph[node]){
+                if(dis+it[1]<distance[it[0]] && stops<=k){
+                    distance[it[0]]=dis+it[1];
+                    if(it[0]!=dst){
+                        pq.push({stops+1,{it[0],distance[it[0]]}});
+                    }
+                    else{
+                        pq.push({stops,{it[0],distance[it[0]]}});
+                    }
+                }
+            }
+        }
+        
+        return distance[dst]==INT_MAX?-1:distance[dst];
+    }
+};
