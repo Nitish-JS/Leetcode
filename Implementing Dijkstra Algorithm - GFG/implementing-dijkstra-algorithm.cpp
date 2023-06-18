@@ -12,15 +12,15 @@ class Solution
     {
         vector<int> distance(V,-1);
         distance[S]=0;
-        queue<int> q;
-        q.push(S);
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> q;
+        q.push({0,S});
         while(!q.empty()){
-            int node=q.front();
+            int node=q.top().second;
             q.pop();
             for(auto it:adj[node]){
                 if(it[1]+distance[node]<distance[it[0]] || distance[it[0]]==-1){
                     distance[it[0]]=it[1]+distance[node];
-                    q.push(it[0]);
+                    q.push({distance[it[0]],it[0]});
                 }
             }
         }
