@@ -11,12 +11,12 @@ public:
         buildGraph(graph,flights);
         vector<int> distance(n,INT_MAX);
         distance[src]=0;
-        priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>> pq;
+        queue<pair<int,pair<int,int>>>pq;
         pq.push({0,{src,0}});
         while(!pq.empty()){
-            int stops=pq.top().first;
-            int node=pq.top().second.first;
-            int dis=pq.top().second.second;
+            int stops=pq.front().first;
+            int node=pq.front().second.first;
+            int dis=pq.front().second.second;
             pq.pop();
             for(auto it:graph[node]){
                 if(dis+it[1]<distance[it[0]] && stops<=k){
