@@ -17,7 +17,6 @@ private:
         if(root->left){
             newLeftNode->left=root->left;
         }
-        // newLeftNode->right=NULL;
         root->left=newLeftNode;
         if(root->right){
             newRightNode->right=root->right;
@@ -35,18 +34,17 @@ public:
         int level=1;
         queue<TreeNode*> q;
         q.push(root);
+        //bfs Traversal
         while(!q.empty()){
+             int size=q.size();
             if(level==depth-1){
-                int size=q.size();
                 for(int i=0;i<size;i++){
                     TreeNode *temp=q.front();
-                    // cout<<temp->val<<" ";
                     q.pop();
                     insertRow(temp,val);
                 }
                 break;
             }
-            int size=q.size();
             for(int i=0;i<size;i++){
                 currNode=q.front();
                 q.pop();
