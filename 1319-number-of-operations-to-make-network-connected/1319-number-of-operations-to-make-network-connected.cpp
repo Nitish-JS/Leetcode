@@ -6,6 +6,7 @@ private:
             adj[edge[1]].push_back(edge[0]);
         }
     }
+//     DFS Approach
     void dfs(vector<int> adj[],vector<int> &visited,int node){
         visited[node]=1;
         for(auto it:adj[node]){
@@ -14,6 +15,7 @@ private:
             }
         }
     }
+//     BFS Approach gives TLE
     void bfs(vector<int> adj[],vector<int> &visited,int node){
         queue<int> q;
         q.push(node);
@@ -40,6 +42,8 @@ public:
             if(!visited[i]){
                 connectedComponents++;
                 dfs(adj,visited,i);
+//              bfs(adj,visited,i); TLE 
+//              TRY UNION FIND
             }
         }
         return connectedComponents-1;
