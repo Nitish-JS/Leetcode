@@ -1,6 +1,7 @@
 class DisjointSet{
-    vector<int> parent,rank;
+    
 public:
+    vector<int> parent,rank;
     DisjointSet(int n){
         parent.resize(n+1);
         rank.resize(n+1);
@@ -74,11 +75,12 @@ public:
         for(auto it:connections){
             DS.Union(it[0],it[1]);
         }
-        unordered_set<int> unionSize;
+        int connectedComponents=0;
         for(int i=0;i<n;i++){
-            unionSize.insert(DS.find(i));
+            if(DS.parent[i]==i)
+                connectedComponents++;
         }
-        return unionSize.size()-1;
+        return connectedComponents-1;
 //         DFS approach
 
 //         vector<int> adj[n];
