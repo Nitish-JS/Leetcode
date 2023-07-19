@@ -25,8 +25,19 @@ class Solution{
     int longestPalinSubseq(string A) {
         //code here
         string rev=A;
-        vector<vector<int>> dp(A.size()+1,vector<int>(A.size()+1,-1));
+        vector<vector<int>> dp(A.size()+1,vector<int>(A.size()+1,0));
         reverse(rev.begin(),rev.end());
+        for(int i=1;i<=A.size();i++){
+            for(int j=1;j<=rev.size();j++){
+                if(A[i-1]==rev[j-1]){
+                    dp[i][j]=1+dp[i-1][j-1];
+                }
+                else{
+                    dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+                }
+            }
+        }
+        return dp[A.size()][A.size()];
         return lcs(A,rev,A.size()-1,rev.size()-1,dp);
     }
 };
