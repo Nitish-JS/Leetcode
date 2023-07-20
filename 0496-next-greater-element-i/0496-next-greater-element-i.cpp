@@ -5,12 +5,20 @@ public:
         vector<int> nge(maxi+1,-1);
         stack<int> st;
         for(int i=nums2.size()-1;i>=0;i--){
-            while(!st.empty() && st.top()<nums2[i])
+            while(!st.empty()){
+                if(st.top()>nums2[i]){
+                    nge[nums2[i]]=st.top();
+                    break;
+                }
                 st.pop();
-            if(!st.empty()){
-                nge[nums2[i]]=st.top();
             }
             st.push(nums2[i]);
+            // while(!st.empty() && st.top()<nums2[i])
+            //     st.pop();
+            // if(!st.empty()){
+            //     nge[nums2[i]]=st.top();
+            // }
+            // st.push(nums2[i]);
         }
         vector<int> ans;
         for(int i=0;i<nums1.size();i++){
