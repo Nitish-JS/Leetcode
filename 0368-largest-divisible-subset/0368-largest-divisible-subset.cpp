@@ -16,7 +16,7 @@ public:
                 }
             }
         }
-       int maxIndex=0;
+        int maxIndex=0;
         int maxi=INT_MIN;
         for(int i=0;i<n;i++){
             if(dp[i]>maxi){
