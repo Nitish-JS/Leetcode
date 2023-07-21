@@ -5,8 +5,8 @@ public:
         int n=nums.size();
         sort(nums.begin(),nums.end());
         vector<int> dp(n,1),hash(n);
-        for(int i=0;i<n;i++) hash[i]=i;
         for(int i=0;i<n;i++){
+            hash[i]=i;
             for(int j=0;j<i;j++){
                 if( nums[i]%nums[j]==0){
                     if(dp[j]+1>dp[i]){
