@@ -1,25 +1,35 @@
 class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
-        sort(nums.begin(),nums.end());
-        set<vector<int>> st;
+        int mod=1e9+7;
         vector<vector<int>> ans;
+        vector<int> temp;
+        sort(nums.begin(),nums.end());
         int n=nums.size();
-        for(int i=0;i<n-3;i++){
-            if(i==0 || (i>0 && nums[i]!=nums[i-1])){
-                for(int j=i+1;j<n-2;j++){
+        for(int i=0;i<n;i++){
+            if(i==0 || i>0 && nums[i]!=nums[i-1]){
+                for(int j=i+1;j<n;j++){
                     if(j==i+1 || (j>i+1 && nums[j]!=nums[j-1])){
                         int low=j+1;
-                        int high=nums.size()-1;
+                        int high=n-1;
                         while(low<high){
-                            if((long)nums[i]+nums[j]+nums[low]+nums[high]==target){
-                                ans.push_back({nums[i],nums[j],nums[low],nums[high]});
+                            long long tar1=nums[low];
+                            long long tar2=nums[high];
+                            long long tar3=nums[i];
+                            long long tar4=nums[j];
+                            if(tar1+tar2+tar3+tar4==target){
+                                temp.push_back(nums[i]);
+                                temp.push_back(nums[j]);
+                                temp.push_back(nums[low]);
+                                temp.push_back(nums[high]);
+                                ans.push_back(temp);
+                                temp.clear();
                                 while(low<high && nums[low]==nums[low+1]) low++;
-                                while(high>low && nums[high]==nums[high-1]) high--;
+                                while(low<high && nums[high]==nums[high-1]) high--;
                                 low++;
                                 high--;
                             }
-                            else if((long)nums[i]+nums[j]+nums[low]+nums[high]<target)
+                            else if(tar1+tar2+tar3+tar4<target)
                                 low++;
                             else
                                 high--;
@@ -28,7 +38,6 @@ public:
                 }
             }
         }
-        // vector<vector<int>> ans(st.begin(),st.end());
         return ans;
     }
 };
