@@ -14,18 +14,19 @@ class Solution
         for(int i=0;i<n;i++){
             vp[i]={start[i],end[i]};
         }
-        sort(vp.begin(),vp.end(),[](const pair<int,int> &a,const pair<int,int>&b){
-            return a.second<b.second;
+        sort(vp.begin(),vp.end(),[](pair<int,int> &p1,pair<int,int> &p2){
+            return p1.second<p2.second;
         });
-        int ans=1;
+        int count=1;
         int curr=0;
         for(int i=1;i<n;i++){
-          if(vp[i].first>vp[curr].second){
-              ans++;
-              curr=i;
-          }  
+            if(vp[i].first>vp[curr].second){
+                count++;
+                curr=i;
+            }
         }
-        return ans;
+        return count;
+        
         // Your code here
     }
 };
