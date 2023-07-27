@@ -4,22 +4,20 @@ public:
         if(nums.size()==0)
             return 0;
         unordered_set<int> st;
-        for(int i:nums){
-            st.insert(i);
-        }
+        for(int i=0;i<nums.size();i++)
+            st.insert(nums[i]);
         int ans=1;
-        for(auto it:st){
+        for(int it:st){
             if(st.find(it-1)==st.end()){
-                int cnt=1;
+                int count=1;
                 int x=it;
                 while(st.find(x+1)!=st.end()){
-                    cnt++;
+                    count++;
                     x++;
                 }
-                ans=max(ans,cnt);
+                ans=max(ans,count);
             }
         }
         return ans;
-        
     }
 };
