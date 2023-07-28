@@ -1,47 +1,39 @@
 class Solution {
 public:
     void bfs(vector<vector<char>> &grid,vector<vector<int>> &visited,int row,int col){
+        int delX[]={-1,0,1,0};
+        int delY[]={0,-1,0,1};
         queue<pair<int,int>> q;
         q.push({row,col});
         visited[row][col]=1;
         while(!q.empty()){
-            pair<int,int> node=q.front();
-            int currRow=node.first;
-            int currCol=node.second;
+            int currRow=q.front().first;
+            int currCol=q.front().second;
             q.pop();
-            if(currRow-1>=0 && currRow-1<grid.size() && grid[currRow-1][currCol]=='1' && (visited[currRow-1][currCol]==0) ){
-                q.push({currRow-1,currCol});
-                visited[currRow-1][currCol]=1;
-            }
-            if(currRow+1>=0 && currRow+1<grid.size() && grid[currRow+1][currCol]=='1' && (visited[currRow+1][currCol]==0) ){
-                q.push({currRow+1,currCol});
-                visited[currRow+1][currCol]=1;
-            }
-            if(currCol-1>=0 && currCol-1<grid[0].size() && grid[currRow][currCol-1]=='1' && (visited[currRow][currCol-1]==0) ){
-                q.push({currRow,currCol-1});
-                visited[currRow][currCol-1]=1;
-            }
-            if(currCol+1>=0 && currCol+1<grid[0].size() && grid[currRow][currCol+1]=='1' && (visited[currRow][currCol+1]==0) ){
-                q.push({currRow,currCol+1});
-                visited[currRow][currCol+1]=1;
+            for(int i=0;i<4;i++){
+                int nextRow=currRow+delX[i];
+                int nextCol=currCol+delY[i];
+                if(nextRow>=0 && nextCol>=0 && nextRow<grid.size() && nextCol<grid[0].size() && visited[nextRow][nextCol]==0 && grid[nextRow][nextCol]=='1'){
+                    q.push({nextRow,nextCol});
+                    visited[nextRow][nextCol]=1;
+                }
             }
         }
     }
-    
-    
     int numIslands(vector<vector<char>>& grid) {
-        int n=grid.size();
-        int m=grid[0].size();
-        vector<vector<int>> visited(n,vector<int>(m,0));
+        int m=grid.size();
+        int n=grid[0].size();
+        vector<vector<int>> visited(m,vector<int>(n,0));
         int ans=0;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(!visited[i][j] && grid[i][j]=='1'){
-                    ans++;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(visited[i][j]==0 && grid[i][j]=='1'){
                     bfs(grid,visited,i,j);
+                    ans++;
                 }
             }
         }
         return ans;
+        
     }
 };
