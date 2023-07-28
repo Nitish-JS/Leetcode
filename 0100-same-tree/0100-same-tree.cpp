@@ -12,7 +12,7 @@
 class Solution {
 public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
-        if(p==NULL && q==NULL)
+        if(!p && !q)
             return true;
         if(!p || !q)
             return false;
@@ -20,6 +20,6 @@ public:
             return false;
         bool left=isSameTree(p->left,q->left);
         bool right=isSameTree(p->right,q->right);
-        return left && right;
+        return left & right;
     }
 };
