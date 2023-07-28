@@ -7,31 +7,61 @@ class Solution
 {
 	public:
 	//Function to return list containing vertices in Topological order. 
-	void topoSortDfs(int node,vector<int> adj[],stack<int> &topo,vector<int> &visited){
-	    visited[node]=1;
-	    for(auto it:adj[node]){
-	        if(!visited[it]){
-	            topoSortDfs(it,adj,topo,visited);
-	        }
-	    }
-	    topo.push(node);
-	}
-	vector<int> topoSort(int V, vector<int> adj[]) 
-	{
-	    stack<int> topo;
-	    vector<int> visited(V);
-	    for(int i=0;i<V;i++){
-	        if(!visited[i])
-	            topoSortDfs(i,adj,topo,visited);
-	    }
-	    vector<int> ans;
-	    while(!topo.empty()){
-	        ans.push_back(topo.top());
-	        topo.pop();
-	    }
-	    return ans;
-	    // code here
-	}
+// 	void topoSortDfs(int node,vector<int> adj[],stack<int> &topo,vector<int> &visited){
+// 	    visited[node]=1;
+// 	    for(auto it:adj[node]){
+// 	        if(!visited[it]){
+// 	            topoSortDfs(it,adj,topo,visited);
+// 	        }
+// 	    }
+// 	    topo.push(node);
+// 	}
+// 	vector<int> topoSort(int V, vector<int> adj[]) 
+// 	{
+// 	    stack<int> topo;
+// 	    vector<int> visited(V);
+// 	    for(int i=0;i<V;i++){
+// 	        if(!visited[i])
+// 	            topoSortDfs(i,adj,topo,visited);
+// 	    }
+// 	    vector<int> ans;
+// 	    while(!topo.empty()){
+// 	        ans.push_back(topo.top());
+// 	        topo.pop();
+// 	    }
+// 	    return ans;
+// 	    // code here
+// 	}
+    vector<int> topoSort(int V, vector<int> adj[]) {
+        vector<int> indegree(V);
+        // vector<int> visited(V);
+        for(int i=0;i<V;i++){
+            for(auto it:adj[i]){
+                indegree[it]++;
+            }
+        }
+        queue<int> q;
+        vector<int> topo;
+        for(int i=0;i<V;i++){
+            if(indegree[i]==0){
+                q.push(i);
+                topo.push_back(i);
+            }
+        }
+        while(!q.empty()){
+            int curr=q.front();
+            q.pop();
+            for(auto it:adj[curr]){
+                indegree[it]--;
+                if(indegree[it]==0){
+                    q.push(it);
+                    topo.push_back(it);
+                }
+            }
+        }
+        return topo;
+        // code here
+    }
 };
 
 //{ Driver Code Starts.
