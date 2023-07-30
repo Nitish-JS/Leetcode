@@ -16,7 +16,6 @@ public:
         for(int i:nums)
             bob+=i;
         vector<vector<int>> dp(nums.size(),vector<int>(nums.size(),-1));
-        // vector<vector<vector<int>>> dp(nums.size(),vector<vector<int>>(nums.size(),vector<int>(2,-1)));
         alice=solve(nums,0,nums.size()-1,1,dp);
         bob-=alice;
         cout<<alice<<" "<<bob<<'\n';
