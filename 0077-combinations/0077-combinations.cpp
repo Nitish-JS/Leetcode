@@ -1,27 +1,20 @@
 class Solution {
 public:
-    void solve(vector<vector<int>> &ans,int n,int index,int k,vector<int> &ds){
-        if(index==n+1 || ds.size()==k){
-            if(ds.size()==k){
-                ans.push_back(ds);
-            }
+    void solve(vector<vector<int>> &combinations,vector<int> &combination,int index,int n,int k){
+        if(index==n){
+            if(combination.size()==k)
+                combinations.push_back(combination);
             return ;
         }
-        ds.push_back(index);
-        solve(ans,n,index+1,k,ds);
-        ds.pop_back();
-        solve(ans,n,index+1,k,ds);
+        combination.push_back(index);
+        solve(combinations,combination,index+1,n,k);
+        combination.pop_back();
+        solve(combinations,combination,index+1,n,k);
     }
     vector<vector<int>> combine(int n, int k) {
-        // vector<int> nums(n);
-        // for(int i=0;i<n;i++){
-        //     nums[i]=i+1;
-        // }
-        vector<vector<int>> ans;
-        vector<int> ds;
-        solve(ans,n,1,k,ds);
-        return ans;
-        
-        
+        vector<vector<int>> combinations;
+        vector<int> combination;
+        solve(combinations,combination,1,n+1,k);
+        return combinations;
     }
 };
