@@ -1,26 +1,26 @@
 class Solution {
 public:
-    bool solve(int index,int target,vector<int> &arr,vector<int> &dp){
+    bool solve(vector<int> &nums,int index,int target,vector<vector<int>> &dp){
         if(target==0)
-           return true;
+            return false;
         if(index==0)
-            return arr[index]==target;
-        if(dp[target]!=-1)
-            return dp[target];
+            return nums[index]==target;
+        if(dp[index][target]!=-1)
+            return dp[index][target];
         bool take=false;
-        if(arr[index]<=target)
-            take=solve(index-1,target-arr[index],arr,dp);
-        bool nottake=solve(index-1,target,arr,dp);
-        return dp[target]=take||nottake;
+        if(nums[index]<=target)
+            take=solve(nums,index-1,target-nums[index],dp);
+        bool nottake=solve(nums,index-1,target,dp);
+        return dp[index][target]=take||nottake;
     }
     bool canPartition(vector<int>& nums) {
         int sum=0;
-        for(int i:nums){
+        for(int i:nums)
             sum+=i;
-        }
         if(sum%2==1)
             return false;
-        vector<int> dp(sum,-1);
-        return solve(nums.size()-1,sum/2,nums,dp);
+        vector<vector<int>> dp(nums.size(),vector<int>(sum/2+1,-1));
+        return solve(nums,nums.size()-1,sum/2,dp);
+        
     }
 };
