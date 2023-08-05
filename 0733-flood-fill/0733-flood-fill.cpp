@@ -1,41 +1,33 @@
 class Solution {
 public:
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
-        int n=image.size();
-        int m=image[0].size();
-        int initial=image[sr][sc];
-        vector<vector<int>> visited(n,vector<int>(m,0));
-        queue<pair<int,int>> q;
-        q.push({sr,sc});
-        visited[sr][sc]=1;
-        image[sr][sc]=color;
-        // doing bfs
-        while(!q.empty()){
-            pair<int,int> node=q.front();
-            int currRow=node.first;
-            int currCol=node.second;
-            q.pop();
-            if(currRow-1>=0 && currRow-1<n && !visited[currRow-1][currCol] && image[currRow-1][currCol]==initial){
-                q.push({currRow-1,currCol});
-                visited[currRow-1][currCol]=1;
-                image[currRow-1][currCol]=color;
-            }
-            if(currRow+1>=0 && currRow+1<n && !visited[currRow+1][currCol] && image[currRow+1][currCol]==initial){
-                q.push({currRow+1,currCol});
-                visited[currRow+1][currCol]=1;
-                image[currRow+1][currCol]=color;
-            }
-            if(currCol-1>=0 && currCol-1<m && !visited[currRow][currCol-1] && image[currRow][currCol-1]==initial){
-                q.push({currRow,currCol-1});
-                visited[currRow][currCol-1]=1;
-                image[currRow][currCol-1]=color;
-            }
-            if(currCol+1>=0 && currCol+1<m && !visited[currRow][currCol+1] && image[currRow][currCol+1]==initial){
-                q.push({currRow,currCol+1});
-                visited[currRow][currCol+1]=1;
-                image[currRow][currCol+1]=color;
+        int m=image.size();
+        int n=image[0].size();
+        vector<vector<int>> mat(m,vector<int>(n,-1));
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                mat[i][j]=image[i][j];
             }
         }
-        return image;
+        int dirX[]={-1,0,1,0};
+        int dirY[]={0,-1,0,1};
+        int startColor=image[sr][sc];
+        queue<pair<int,int>> q;
+        q.push({sr,sc});
+        while(!q.empty()){
+            pair<int,int> currNode=q.front();
+            int row=currNode.first;
+            int col=currNode.second;
+            mat[row][col]=color;
+            q.pop();
+            for(int i=0;i<4;i++){
+                int newRow=row+dirX[i];
+                int newCol=col+dirY[i];
+                if(newRow>=0 && newCol>=0 && newRow<m && newCol<n && mat[newRow][newCol]==startColor && mat[newRow][newCol]!=color){
+                    q.push({newRow,newCol});
+                }
+            }
+        }
+        return mat;
     }
 };
