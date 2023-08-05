@@ -19,11 +19,44 @@ public:
         dfsVisited[node]=0;
         return false;
     }
+    bool detectCycleBfs(vector<int> adj[],int numCourses){
+        vector<int> indegree(numCourses, 0); 
+        for(int i=0;i<numCourses;i++){
+            for(auto it:adj[i]){
+                indegree[it]++;
+            }
+        }
+        queue<int> q;
+        int count=0;
+        for(int i=0;i<numCourses;i++){
+            if(indegree[i]==0){
+                q.push(i);
+                count++;                
+            }
+        }
+        while(!q.empty()){
+            int node=q.front();
+            cout<<node<<" ";
+            q.pop();
+            for(auto it:adj[node]){
+                indegree[it]--;
+                if(indegree[it]==0){
+                    q.push(it);
+                    count++;
+                }
+            }
+        }
+        return count==numCourses?false:true;
+    }
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         vector<int> adj[numCourses];
         buildGraph(adj,prerequisites);
         vector<int> visited(numCourses);
         vector<int> dfsVisited(numCourses);
+        if(detectCycleBfs(adj,numCourses))
+            return false;
+        else
+            return true;
         for(int i=0;i<numCourses;i++){
             if(!visited[i]){
                 if(detectCycleDfs(adj,i,visited,dfsVisited)==true)
@@ -31,5 +64,6 @@ public:
             }
         }
         return true;
+        
     }
 };
