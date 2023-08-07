@@ -1,59 +1,64 @@
 class Node{
 public:
     Node* links[26];
-    bool end;
+    bool flag;
     Node(){
         for(auto &a:links) a=NULL;
-        end=false;
+        flag=false;
     }
     bool containsKey(char c){
         return links[c-'a']!=NULL;
     }
-    Node* getKey(char c){
+    void insertKey(char c,Node *node){
+        links[c-'a']=node;
+    } 
+    Node *getKey(char c){
         return links[c-'a'];
     }
-    void insertKey(char c,Node* node){
-        links[c-'a']=node;
+    bool isEnd(){
+        return flag;
     }
     void setEnd(){
-        end=true;
+        flag=true;
     }
-    bool isEnd(){
-        return end;
-    }
+    
 };
+
 class Trie {
 public:
-    Node* root;
+    Node *root;
     Trie() {
         root=new Node();
     }
     
     void insert(string word) {
-        Node *node=root;
+        Node* node=root;
         for(int i=0;i<word.size();i++){
-            if(!node->containsKey(word[i]))
-               node->insertKey(word[i],new Node()); 
+            if(!node->containsKey(word[i])){
+                node->insertKey(word[i],new Node());
+            }
             node=node->getKey(word[i]);
         }
         node->setEnd();
     }
     
     bool search(string word) {
-        Node *node=root;
+        Node* node=root;
         for(int i=0;i<word.size();i++){
-            if(!node->containsKey(word[i]))
-                return false;
+            if(!node->containsKey(word[i])){
+               return false;
+            }
             node=node->getKey(word[i]);
         }
         return node->isEnd();
     }
     
     bool startsWith(string word) {
-        Node *node=root;
+        Node* node=root;
         for(int i=0;i<word.size();i++){
-            if(!node->containsKey(word[i]))
-                return false;
+            if(!node->containsKey(word[i])){
+               return false;
+            }
             node=node->getKey(word[i]);
         }
         return true;
