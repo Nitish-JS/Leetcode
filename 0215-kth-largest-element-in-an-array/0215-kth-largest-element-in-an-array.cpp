@@ -1,35 +1,36 @@
 class Solution {
 public:
-    void heapify(vector<int> &nums,int index,int n){
-        int largest=index;
+    void heapify(vector<int> &nums,int largest,int n){
+        int index=largest;
         int left=2*index+1;
         int right=2*index+2;
-        if(left<n && nums[left]>nums[largest])
+        if(left<n && nums[largest]<nums[left])
             largest=left;
-        if(right<n && nums[right]>nums[largest])
+        if(right<n && nums[largest]<nums[right])
             largest=right;
-        if(largest!=index){
+        if(index!=largest){
             swap(nums[largest],nums[index]);
             heapify(nums,largest,n);
         }
+      
     }
     int deleteHeap(vector<int> &nums){
-        int val=nums[0];
+        int ans=nums[0];
         nums[0]=nums.back();
         nums.pop_back();
         heapify(nums,0,nums.size());
-        return val;
+        return ans;
     }
     int findKthLargest(vector<int>& nums, int k) {
         int n=nums.size();
-        int start=n/2-1;
-        for(int i=start;i>=0;i--)
+        int start=n/2;
+        for(int i=start;i>=0;i--){
             heapify(nums,i,n);
-        // for(int i:nums)
-        //     cout<<i<<" ";
+        }
         int ans=0;
-        for(int i=0;i<k;i++)
+        for(int i=0;i<k;i++){
             ans=deleteHeap(nums);
+        }
         return ans;
     }
 };
