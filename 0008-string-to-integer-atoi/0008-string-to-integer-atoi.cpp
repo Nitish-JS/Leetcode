@@ -11,7 +11,6 @@ public:
         pos==true?i++:i;
         neg==true?i++:i;
         while(i<s.size() && s[i]-'0'>=0 && s[i]-'0'<=9){
-            
             ans=(ans*10)+s[i++]-'0';
             if(ans>INT_MAX){
                 if(neg)
