@@ -17,15 +17,14 @@ public:
         int m=obstacleGrid.size();
         int n=obstacleGrid[0].size();
         // vector<vector<int>> dp(m,vector<int>(n,0));
-        vector<int> curr(n,0);
         vector<int> prev(n,0);
-        curr[0]=1;
         for(int row=0;row<m;row++){
+            vector<int> curr(n,0);
             for(int col=0;col<n;col++){
                 if(col==0 && row==0)
                     curr[0]=1;
                 else if(obstacleGrid[row][col]==1)
-                    curr[col]=0;
+                    continue;
                 else {
                     int right=0;
                     int down=0;
@@ -38,7 +37,7 @@ public:
             }
             prev=curr;
         }
-        return curr[n-1];
+        return prev[n-1];
         // return solve(obstacleGrid,m-1,n-1,dp);
     }
 };
