@@ -1,32 +1,30 @@
 class Node{
-public:
-    Node* links[26];
-    bool flag;
+    Node *links[26];
+    bool endWord;
+    public:
     Node(){
         for(auto &a:links) a=NULL;
-        flag=false;
+        endWord=false;
     }
     bool containsKey(char c){
         return links[c-'a']!=NULL;
     }
-    void insertKey(char c,Node *node){
-        links[c-'a']=node;
-    } 
-    Node *getKey(char c){
+    void insertChar(char c,Node* newNode){
+        links[c-'a']=newNode;
+    }
+    Node* getLink(char c){
         return links[c-'a'];
     }
-    bool isEnd(){
-        return flag;
+    void setEndWord(){
+        endWord=true;
     }
-    void setEnd(){
-        flag=true;
+    bool isEndWord(){
+        return endWord;
     }
-    
 };
-
 class Trie {
 public:
-    Node *root;
+    Node* root;
     Trie() {
         root=new Node();
     }
@@ -34,34 +32,33 @@ public:
     void insert(string word) {
         Node* node=root;
         for(int i=0;i<word.size();i++){
-            if(!node->containsKey(word[i])){
-                node->insertKey(word[i],new Node());
-            }
-            node=node->getKey(word[i]);
+            if(!node->containsKey(word[i]))
+                node->insertChar(word[i],new Node());
+            node=node->getLink(word[i]);
         }
-        node->setEnd();
+        node->setEndWord();
+        
     }
     
     bool search(string word) {
         Node* node=root;
         for(int i=0;i<word.size();i++){
-            if(!node->containsKey(word[i])){
-               return false;
-            }
-            node=node->getKey(word[i]);
+            if(!node->containsKey(word[i]))
+                return false;
+            node=node->getLink(word[i]);
         }
-        return node->isEnd();
+        return node->isEndWord();
     }
     
-    bool startsWith(string word) {
+    bool startsWith(string word){
         Node* node=root;
         for(int i=0;i<word.size();i++){
-            if(!node->containsKey(word[i])){
-               return false;
-            }
-            node=node->getKey(word[i]);
+            if(!node->containsKey(word[i]))
+                return false;
+            node=node->getLink(word[i]);
         }
         return true;
+        
     }
 };
 
