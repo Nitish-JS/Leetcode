@@ -14,7 +14,7 @@ public:
         if(dp[row][col]!=-1)
             return dp[row][col];
         for(int i=0;i<4;i++){
-            int path=0;
+            int path=1;
             int nextRow=row+dirX[i];
             int nextCol=col+dirY[i];
             if(isSafe(nextRow,nextCol,grid.size(),grid[0].size()) && grid[row][col]<grid[nextRow][nextCol]){
@@ -34,6 +34,6 @@ public:
                 ans=max(ans,solve(matrix,i,j,dp));
             }
         }
-        return ans+1;
+        return ans;
     }
 };
