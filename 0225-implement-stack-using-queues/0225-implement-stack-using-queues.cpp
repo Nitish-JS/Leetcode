@@ -30,7 +30,7 @@ public:
     }
     
     bool empty() {
-        return q1.empty();
+        return q1.size()==0;
     }
 };
 
